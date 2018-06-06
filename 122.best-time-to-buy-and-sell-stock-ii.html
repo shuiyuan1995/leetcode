@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>买卖股票的最佳时机 II</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/**
+		 * 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+		 设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+		 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+		 * @param {number[]} prices
+		 * @return {number}
+		 */
+		 // 自己写的
+		var maxProfit = function(prices) {
+			let len = prices.length
+			let buy,sell,money = 0
+			for (var i = 0; i < len; i++) {
+				if (prices[i] < prices[i+1]) {
+					buy = prices[i]
+					if (len-i > 2) {
+							for (var j = (i+1); j < len-1; j++) {
+							if (prices[j] > prices[j+1]) {
+								sell = prices[j]
+								i = j
+								break
+							}else{
+								sell = prices[j+1]
+								i = j+1
+							}
+						}
+					}else{
+						sell = prices[i+1]
+					}
+					money += sell - buy
+				}
+			}
+			return money
+		};
+		// 参考（更好的代码）
+		// var maxProfit = function(prices) {
+		//     let maxProfit = 0
+		//     let curMin = prices[0]
+		//     for(let i = 1; i < prices.length; i++){
+		//         if (prices[i] > curMin) {
+		//             maxProfit += prices[i] - curMin
+		//         }
+		//         curMin = prices[i]
+		//     }
+		//     return maxProfit
+		// };
+		let a = [2,1,4]
+		console.log(maxProfit(a))
+	</script>
+</body>
+</html>
